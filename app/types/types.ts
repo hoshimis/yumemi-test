@@ -8,3 +8,28 @@ export type Prefecture = {
     }
   ]
 }
+
+// 人口構成を取得す津APIのレスポンスの型定義
+export type PopulationComposition = {
+  message: string | null
+  result: {
+    boundaryYear: number
+    data: [
+      {
+        label: string
+        data: [
+          {
+            year: number
+            value: number
+          }
+        ]
+      }
+    ]
+  }
+}
+
+// chartの表示に必要なデータの型定義
+export type ChartObject = {
+  year: number
+  [key: string]: number
+}
