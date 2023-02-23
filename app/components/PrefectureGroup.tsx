@@ -1,5 +1,5 @@
 import styles from './PrefectureGroup.module.css'
-import React, { FC, Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { Prefecture } from '../types/types'
 import Spinner from './Spinner'
 import PrefectureItem from './PrefectureItem'
@@ -23,27 +23,7 @@ const getPrefectureAll = async () => {
   return prefectures
 }
 
-const getPopulation = async (prefCode: number) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_RESAS_POPULATION_URL}/prefCode=${prefCode}`,
-    {
-      headers: new Headers({
-        'X-API-KEY': process.env.RESAS_API_KEY as string
-      }),
-      cache: 'no-store'
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch prefectures')
-  }
-
-  const prefectures: Prefecture = await response.json()
-  return prefectures
-}
-
-// @ts-ignore
-const PrefectureGroup: FC = async () => {
+export default async function PrefectureGroup() {
   const data = await getPrefectureAll()
   const prefectures = data.result
 
@@ -60,5 +40,3 @@ const PrefectureGroup: FC = async () => {
     </section>
   )
 }
-
-export default PrefectureGroup
