@@ -9,10 +9,11 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from 'recharts'
 import styles from './PopulationChart.module.css'
-import { PREFECTURES } from '../consts/prefectures'
+import { PREFECTURES, PREFECTURESCOLORS } from '../consts/consts'
 import { ChartObject } from '../types/types'
 
 export default function PopulationChart() {
@@ -39,6 +40,8 @@ export default function PopulationChart() {
 
       if (!response.ok) {
         throw new Error('Failed to fetch prefectures')
+      } else {
+        console.log('Success to fetch prefectures')
       }
 
       const responseData = await response.json()
@@ -80,30 +83,33 @@ export default function PopulationChart() {
   return (
     <section className={styles.container}>
       {stateChartData.length > 0 ? (
-        <LineChart
-          width={850}
-          height={350}
-          margin={{ top: 10, right: 0, left: 30, bottom: 0 }}
-          data={stateChartData}
-        >
-          {statePrefectures.map((data: any) => {
-            return (
-              <Line
-                key={data}
-                type="monotone"
-                dataKey={data}
-                stroke="#8884d8"
-              />
-            )
-          })}
-          <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-        </LineChart>
+        <ResponsiveContainer height={350} width="100%">
+          <LineChart
+            className={styles.chart_container}
+            width={850}
+            height={350}
+            margin={{ top: 10, right: 20, left: 30, bottom: 0 }}
+            data={stateChartData}
+          >
+            {statePrefectures.map((data: any) => {
+              return (
+                <Line
+                  key={data}
+                  type="monotone"
+                  dataKey={data}
+                  stroke={PREFECTURESCOLORS[data]}
+                />
+              )
+            })}
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+          </LineChart>
+        </ResponsiveContainer>
       ) : (
-        <p>
+        <p className={styles.lead_sentence}>
           チェックボックスにチェックするとその県の人口構成を見ることができます！
         </p>
       )}
