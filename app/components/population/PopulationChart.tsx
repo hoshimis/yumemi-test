@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import useStore from '../store/useStore'
+import useStore from '../../store/useStore'
 import {
   LineChart,
   Line,
@@ -13,8 +13,9 @@ import {
   ResponsiveContainer
 } from 'recharts'
 import styles from './PopulationChart.module.css'
-import { PREFECTURES, PREFECTURESCOLORS } from '../consts/consts'
-import { ChartObject } from '../types/types'
+import { PREFECTURES, PREFECTURESCOLORS } from '../../consts/consts'
+import { ChartObject } from '../../types/types'
+import { PopulationComposition } from '../../types/types'
 
 export default function PopulationChart() {
   const { prefectureCodeList } = useStore()
@@ -40,11 +41,9 @@ export default function PopulationChart() {
 
       if (!response.ok) {
         throw new Error('Failed to fetch prefectures')
-      } else {
-        console.log('Success to fetch prefectures')
       }
 
-      const responseData = await response.json()
+      const responseData: PopulationComposition = await response.json()
 
       // 今回fetchした都道府県名を格納する
       const prefName = PREFECTURES[prefectureCode - 1]
@@ -52,7 +51,7 @@ export default function PopulationChart() {
       const populationData = responseData.result.data[0].data
       // chartDataが空の場合は、そのまま挿入する
       if (populationCompositionData.length === 0) {
-        populationData.map((data: any) => {
+        populationData.map((data: { year: number; value: number }) => {
           const obj = {
             year: data.year,
             [prefName]: data.value
@@ -61,12 +60,14 @@ export default function PopulationChart() {
         })
       } else {
         // chartDataが空でない場合は、既存のデータとマージする
-        populationCompositionData.map((data: any, index) => {
+        populationCompositionData.map((data: ChartObject, index) => {
           data[prefName] = populationData[index].value
         })
       }
     }
     chartData = populationCompositionData
+    // オブジェクトに格納されているyear以外のプロパティをprefecturesに格納する
+    // この値をLineChartのdataKeyに渡すことで、LineChartに都道府県ごとのデータを表示する
     if (chartData.length > 0) {
       prefectures = Object.keys(chartData[0]).filter((key) => key !== 'year')
     }
@@ -78,6 +79,7 @@ export default function PopulationChart() {
     ;(async () => {
       await fetchPopulationComposition(prefectureCodeList)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prefectureCodeList])
 
   return (
@@ -91,7 +93,7 @@ export default function PopulationChart() {
             margin={{ top: 10, right: 20, left: 30, bottom: 0 }}
             data={stateChartData}
           >
-            {statePrefectures.map((data: any) => {
+            {statePrefectures.map((data: string) => {
               return (
                 <Line
                   key={data}
