@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import useStore from '../store/useStore'
+import useStore from '../../store/useStore'
 import {
   LineChart,
   Line,
@@ -13,8 +13,8 @@ import {
   ResponsiveContainer
 } from 'recharts'
 import styles from './PopulationChart.module.css'
-import { PREFECTURES, PREFECTURESCOLORS } from '../consts/consts'
-import { ChartObject } from '../types/types'
+import { PREFECTURES, PREFECTURESCOLORS } from '../../consts/consts'
+import { ChartObject } from '../../types/types'
 
 export default function PopulationChart() {
   const { prefectureCodeList } = useStore()

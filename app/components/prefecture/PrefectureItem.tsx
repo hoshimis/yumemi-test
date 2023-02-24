@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react'
 import styles from './PrefectureItem.module.css'
-import useStore from '../store/useStore'
+import useStore from '../../store/useStore'
 
 type Props = {
   prefecture: {
