@@ -5,4 +5,24 @@
   display: flex;
   justify-content: center;
   padding: 10px;
+  margin: 0 auto;
+}
+
+.lead_sentence {
+  font-size: 20px;
+}
+
+.chart_container {
+  max-width: 1200px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .lead_sentence {
+    font-size: 15px;
+  }
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
 }
