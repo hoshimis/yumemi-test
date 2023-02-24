@@ -13,7 +13,7 @@ import {
   ResponsiveContainer
 } from 'recharts'
 import styles from './PopulationChart.module.css'
-import { PREFECTURES } from '../consts/prefectures'
+import { PREFECTURES, PREFECTURESCOLORS } from '../consts/consts'
 import { ChartObject } from '../types/types'
 
 export default function PopulationChart() {
@@ -97,7 +97,7 @@ export default function PopulationChart() {
                   key={data}
                   type="monotone"
                   dataKey={data}
-                  stroke="#8884d8"
+                  stroke={PREFECTURESCOLORS[data]}
                 />
               )
             })}
