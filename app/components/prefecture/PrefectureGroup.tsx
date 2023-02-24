@@ -1,7 +1,7 @@
 import styles from './PrefectureGroup.module.css'
 import React, { Suspense } from 'react'
-import { Prefecture } from '../types/types'
-import Spinner from './Spinner'
+import { Prefecture } from '../../types/types'
+import Spinner from '../spinner/Spinner'
 import PrefectureItem from './PrefectureItem'
 
 const getPrefectureAll = async () => {

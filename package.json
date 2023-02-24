@@ -9,7 +9,8 @@
     "lint": "next lint --dir app",
     "lint:fix": "npm run lint --fix",
     "format": "prettier --write app/**/*.{js,jsx,ts,tsx}",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "cypress": "cypress open"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -18,6 +19,7 @@
     ]
   },
   "dependencies": {
+    "cypress": "^12.6.0",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",

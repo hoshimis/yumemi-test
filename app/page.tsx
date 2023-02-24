@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
-import PrefectureGroup from './components/PrefectureGroup'
-import PopulationChart from './components/PopulationChart'
+import PrefectureGroup from './components/prefecture/PrefectureGroup'
+import PopulationChart from './components/population/PopulationChart'
 
 const Home: NextPage = () => {
   return (
