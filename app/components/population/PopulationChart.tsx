@@ -78,6 +78,7 @@ export default function PopulationChart() {
     ;(async () => {
       await fetchPopulationComposition(prefectureCodeList)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prefectureCodeList])
 
   return (
